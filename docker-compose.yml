@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  squid-proxy:
+    image: ubuntu/squid:latest
+    container_name: squid-proxy
+    ports:
+      - "8443:8443"
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf
+      - ./auth:/etc/squid/auth
+      - squid_cache:/var/spool/squid
+    restart: always
+    networks:
+      - proxy-network
+
+networks:
+  proxy-network:
+    driver: bridge
+
+volumes:
+  squid_cache:
+    driver: local
