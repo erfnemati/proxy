@@ -32,6 +32,7 @@ A lightweight, dockerized Squid proxy server with password authentication for se
    htpasswd -c auth/passwd proxyuser
    # Enter your desired password when prompted
    ```
+   * Remove my user
 
 3. Start the proxy:
    ```bash
