@@ -75,8 +75,8 @@ sudo mkdir -p /etc/systemd/system/docker.service.d
 
 # Create the proxy configuration file
 echo -e "[Service]
-Environment=\"HTTP_PROXY=http_proxy=http://proxyuser:yourpassword@your-server-ip:8443\"
-Environment=\"HTTPS_PROXY=http_proxy=http://proxyuser:yourpassword@your-server-ip:8443\"
+Environment=\"HTTP_PROXY=http://proxyuser:yourpassword@your-server-ip:8443\"
+Environment=\"HTTPS_PROXY=http://proxyuser:yourpassword@your-server-ip:8443\"
 Environment=\"NO_PROXY=localhost,127.0.0.1\"" | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf
 
 # Reload the daemon and restart Docker
