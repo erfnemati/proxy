@@ -20,7 +20,7 @@ A lightweight, dockerized Squid proxy server with password authentication for se
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/erfnemati/docker-squid-proxy.git
+   git clone https://github.com/erfnemati/proxy.git
    cd docker-squid-proxy
    ```
 
@@ -66,6 +66,34 @@ curl https://ifconfig.me
 Most applications support proxy configuration through:
 - Direct proxy settings in the application
 - Environment variables: `http_proxy` and `https_proxy`
+
+### Docker Proxy Configuration:
+#### Enable Docker Proxy
+```bash
+# Create the docker service directory
+sudo mkdir -p /etc/systemd/system/docker.service.d
+
+# Create the proxy configuration file
+echo -e "[Service]
+Environment=\"HTTP_PROXY=http_proxy=http://proxyuser:yourpassword@your-server-ip:8443\"
+Environment=\"HTTPS_PROXY=http_proxy=http://proxyuser:yourpassword@your-server-ip:8443\"
+Environment=\"NO_PROXY=localhost,127.0.0.1\"" | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf
+
+# Reload the daemon and restart Docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+#### Disable Docker Proxy:
+```bash
+# Remove the proxy configuration file
+sudo rm /etc/systemd/system/docker.service.d/http-proxy.conf
+
+# Reload the daemon and restart Docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+
 
 ## Configuration Files
 
